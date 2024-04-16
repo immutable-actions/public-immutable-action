@@ -1,0 +1,22 @@
+name: "Publish Actions Package"
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      packages: write
+      contents: write 
+      actions: read 
+    steps:
+    - name: Checking out
+      uses: actions/checkout@v4
+    - name: Publish
+      id: publish
+      uses: immutable-actions/publish-action-package@main
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
